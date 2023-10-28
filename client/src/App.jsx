@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom';
-// import Pages from './Pages.jsx';
+import Pages from './Pages.jsx';
 import './App.css'
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <>
       <Router>
         <div className="App">
-          <h1> Hi :) </h1>
+          <Pages/>
         </div>
       </Router>
     </>

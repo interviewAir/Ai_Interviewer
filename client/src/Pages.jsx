@@ -1,19 +1,19 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
-import Home from './pages/home';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom'; 
+import Home from './pages/home'; 
 import Context from './pages/context';
 import Interview from './pages/interview';
 import Report from './pages/report';
 
 const Pages = () => {
-    return (
-      <Switch>
-        <Route path="/" exact component={home} />
-        <Route path="/context" component={context} />
-        <Route path="/interview" component={interview} />
-        <Route path="/report" component={report} />
-      </Switch>
-    );
-  };
-  
-  export default Pages;
+  return (
+    <Routes> {}
+      <Route path="/" element={<Home />} /> 
+      <Route path="/context" element={<Context />} />
+      <Route path="/interview" element={<Interview />} />
+      <Route path="/report" element={<Report />} />
+    </Routes>
+  );
+};
+
+export default Pages;
