@@ -1,20 +1,39 @@
 const express = require('express');
-const { Client } = require('pg');
 const app = express();
-const port = 3000;
+const PORT = require('./port');
+const r = require('./route');
 
-const client = new Client(process.env.DATABASE_URL);
+function error(err, req, res, next) {
+  console.error(err);
+  res.status(500).type('html')
+    .send(`<html>
+  <head>
+  <title>Error: ${err.message}</title>
+  </head>
+  <body>
+  <div>
+  <h2>${err.toString()}</h2>
+  <pre>
+  <code>${err.stack}</code>
+  </pre>
+  </div>
+  </body>
+  </html>`)
+}
 
-client.connect(); 
 
-client.on('error', (err) => {
-  console.error('Connection error: ${error}');
+// Entry point for backend
+
+const { MongoClient } = require('mongodb');
+const PORT = 3000;
+
+// Middleware to parse JSON request bodies
+app.use(express.json());
+
+app.use('/', r);
+app.use(error);
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
-
-client.once('open', () => {
-  console.log('Connection successful');
-
-  app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-  });
-})
