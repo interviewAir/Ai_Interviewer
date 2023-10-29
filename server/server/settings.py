@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
 
 from dotenv import load_dotenv
 from pathlib import Path
@@ -121,5 +122,7 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+load_dotenv()
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+API_KEY = os.getenv('API_KEY')
