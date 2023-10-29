@@ -5,6 +5,18 @@ import Pages from './Pages.jsx'
 import './App.css'
 
 function App() {
+
+  useEffect(() => {
+    // Make a GET request to the Express.js API endpoint
+    axios.get('/api/data')
+      .then(response => {
+        setData(response.data.message);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []); // Empty dependency array ensures useEffect runs once after initial render
+
   return (
     <>
       <Router>
