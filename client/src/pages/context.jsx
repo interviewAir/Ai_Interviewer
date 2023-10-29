@@ -17,8 +17,10 @@ function Context() {
             level: level,
             type: type,
         };
-        axios.post('http://your-django-api-url/api/job-applications/', formData)
+        console.log(formData);
+        axios.post('http://127.0.0.1:8000/get_context/', formData)
             .then(response => {
+                console.log("hello");
                 console.log('Form submitted successfully', response.data);
             })
             .catch(error => {
@@ -46,14 +48,14 @@ function Context() {
                 >
                     <option value="Intern">Intern</option>
                     <option value="Part-Time">Part-Time</option>
-                    <option value="Fulltime">Full-Time</option>
+                    <option value="Full-Time">Full-Time</option>
                 </select>
                 <label>Interview Type:</label>
                 <select
                     value = {type}
                     onChange = {(e) => setType(e.target.value)}
                 >
-                    <option value = "Behavorial">Behavorial</option>
+                    <option value = "Behaviorial">Behaviorial</option>
                     <option value = "Technical">Technical</option>
                     <option value = "Behavioral and Technical">Both</option>
                 </select>
