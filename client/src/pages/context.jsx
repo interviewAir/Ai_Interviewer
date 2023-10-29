@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import MyButton from '../components/MyButton';
+import axios from 'axios';
 
 import './context.css'
 
@@ -11,7 +12,18 @@ function Context() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const blog = {position, level, type}
+        const formData = {
+            title: position,
+            level: level,
+            type: type,
+        };
+        axios.post('http://your-django-api-url/api/job-applications/', formData)
+            .then(response => {
+                console.log('Form submitted successfully', response.data);
+            })
+            .catch(error => {
+                console.error('Form submission error', error);
+            });
     }
 
     return (
@@ -26,19 +38,24 @@ function Context() {
                     onChange = {(e) => setPosition(e.target.value)}
                 />
                 <label> Level: </label>
-                <input
+                <select
                     type = "text"
                     required
                     value = {level}
                     onChange = {(e) => setLevel(e.target.value)}
-                />
-                <label> Behavorial or technical interview?</label>
+                >
+                    <option value="Intern">Intern</option>
+                    <option value="Part-Time">Part-Time</option>
+                    <option value="Fulltime">Full-Time</option>
+                </select>
+                <label>Interview Type:</label>
                 <select
                     value = {type}
                     onChange = {(e) => setType(e.target.value)}
                 >
                     <option value = "Behavorial">Behavorial</option>
-                    <option vlaue = "Technical">Technical</option>
+                    <option value = "Technical">Technical</option>
+                    <option value = "Behavioral and Technical">Both</option>
                 </select>
                 <Link to="/interview">
                   <MyButton text = "Submit" className = "custom-button" />

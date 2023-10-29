@@ -1,11 +1,38 @@
-import requests
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.http import JsonResponse
 import openai
-from django.shortcuts import render
-from django.conf import settings
 import speech_recognition as sr
+from django.conf import settings
+from gtts import gTTS
+
+conversation_context = {}
+openai.api_key = settings.API_KEY
 
 
-def interview(request, question):
+def get_context(request):
+    if request.method == "POST":
+        position = request.data.get("position")
+        level = request.data.get("level")
+        interview_type = request.data.get("type")
+
+        prompt = f"Interview a candidate for the position of a {position} at the {level} level.\
+                You are at the highest level of that position.\
+                The interview should be conducted in a professional manner.\
+                It should focus on the {interview_type} aspects of the\
+                job."
+
+        conversation_context["conversation_history"].append({"role": "AI", "content": prompt})
+
+        response = openai.Completion.create(
+            engine="text-davinci-003",
+            prompt=prompt,
+            max_tokens=100,
+        )
+
+        conversation_context["conversation_history"].append({"role": "AI", "content": response.choices[0].text})
+
+        return response.choices[0].text
     if request.method == "POST":
         recognizer = sr.Recognizer()
 
