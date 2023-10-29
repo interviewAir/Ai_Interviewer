@@ -1,10 +1,9 @@
 import React from 'react';
 
-const Report = () => {
+function Report() {
   return (
     <div>
-      <h1>Report Page</h1>
-      <p>This is the content of the Report page.</p>
+      <h1>Report</h1>
     </div>
   );
 };
