@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
-const Interview = () => {
+function Interview() {
   return (
     <div>
-      <h1>Interview Page</h1>
-      <p>This is the content of the Interview page.</p>
+      <h1>Interview</h1>
+      
         <Link to="/report">
-          <button>Finish</button>
+          <Button variant="contained" color="primary"> Finish </Button>
         </Link>
     </div>
   );
